@@ -1,12 +1,12 @@
 {
   "schema_format": 3,
   "provider": "cloudflare",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "members": [
     "cloudflare",
     "cloudflare_ds"
   ],
-  "min_binary_version": "1.0.9",
+  "min_binary_version": "1.0.10",
   "schema_urls": {
     "cloudflare": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.yaml",
     "cloudflare_ds": "https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.yaml"
