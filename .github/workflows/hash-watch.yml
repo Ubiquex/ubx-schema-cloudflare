@@ -31,7 +31,12 @@ on:
     - cron: "0 6 * * 3" # every Wednesday, 06:00 UTC -- offset from
       # ubx-schema-github's own Monday slot so a shared runner queue
       # doesn't stack every real schema repo's own regen on the same day.
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      force_binary_version_bump:
+        description: "Bump even if no member content changed, for a ubx-provider-dynamic release that changes WHAT the binary derives (UBI-241). Off by default so an ordinary tag does not manufacture a release across every provider (UBI-249)."
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -114,6 +119,7 @@ jobs:
           rm -rf "${{ runner.temp }}/new-group"
           ( cd "${{ runner.temp }}/gen" && \
             "${{ runner.temp }}/ubx-provider-dynamic" \
+              ${{ inputs.force_binary_version_bump && '--force-binary-version-bump' || '' }} \
               --generate-snapshot-group="${{ runner.temp }}/new-group" \
               --group-repo-name=cloudflare \
               --group-members=cloudflare \
